@@ -3,6 +3,7 @@
  
  Added Features:
  - Expanded Movement
+ - Unit Collision Based on Team
  - Attack Ranges
 
 ## Links to GDQuest and Acknowledgement of Credit
