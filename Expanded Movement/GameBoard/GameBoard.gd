@@ -13,12 +13,16 @@ const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 var _units := {}
 var _active_unit: Unit
 var _walkable_cells := []
+var _movement_costs
 
 @onready var _unit_overlay: UnitOverlay = $UnitOverlay
 @onready var _unit_path: UnitPath = $UnitPath
+@onready var _map: TileMap = $Map
 
+const MAX_VALUE: int = 99999
 
 func _ready() -> void:
+	_movement_costs = _map.get_movement_costs(grid)
 	_reinitialize()
 
 
@@ -42,7 +46,7 @@ func is_occupied(cell: Vector2) -> bool:
 
 ## Returns an array of cells a given unit can walk using the flood fill algorithm.
 func get_walkable_cells(unit: Unit) -> Array:
-	return _flood_fill(unit.cell, unit.move_range)
+	return _dijkstra(unit.cell, unit.move_range)
 
 
 ## Clears, and refills the `_units` dictionary with game objects that are on the board.
@@ -87,6 +91,58 @@ func _flood_fill(cell: Vector2, max_distance: int) -> Array:
 			stack.append(coordinates)
 	return array
 
+## Generates a list of walkable cells based on unit movement value and tile movement cost
+func _dijkstra(cell: Vector2, max_distance: int) -> Array:
+	var moveable_cells = [cell] # append our base cell to the array
+	var visited = [] # 2d array that keeps track of which cells we've already looked at while running the algorithm
+	var distances = [] # shows distance to each cell, might be useful. can omit if you want to
+	var previous = [] #2d array that shows you which cell you have to take to get there to get the shortest path. can omit if you want to
+	## the previous array can be used to recontruct the path alogrithm found to the previous node you were at
+	
+	## iterate over width and height of the grid
+	for y in range(grid.size.y):
+		visited.append([])
+		distances.append([])
+		previous.append([])
+		for x in range(grid.size.x):
+			visited[y].append(false)
+			distances[y].append(MAX_VALUE)
+			previous[y].append(null)
+	
+	## Make new queue
+	var queue = PriorityQueue.new()
+	
+	queue.push(cell, 0) #starting cell
+	distances[cell.y][cell.x] = 0
+	
+	var tile_cost
+	var distance_to_node
+	var occupied_cells = []
+	
+	## While there is still a node in the queue, we'll keep looping
+	while not queue.is_empty():
+		var current = queue.pop() #take out the front node
+		visited[current.value.y][current.value.x] = true #mark front node as visited
+		
+		for direction in  DIRECTIONS:
+			var coordinates = current.value + direction #Go through all four neighbors of current node
+			if grid.is_within_bounds(coordinates):
+				if visited[coordinates.y][coordinates.x]:
+					continue
+				else:
+					tile_cost = _movement_costs[coordinates.y][coordinates.x]
+					
+					distance_to_node = current.priority + tile_cost #calculate tile cost normally
+					
+					visited[coordinates.y][coordinates.x] = true
+					distances[coordinates.y][coordinates.x] = distance_to_node
+				
+				if distance_to_node <= max_distance: #check if node is actually reachable by our unit
+					previous[coordinates.y][coordinates.x] = current.value #mark tile we used to get here
+					moveable_cells.append(coordinates) #attach new node we are looking at as reachable
+					queue.push(coordinates, distance_to_node) #use distance as priority
+	
+	return moveable_cells
 
 ## Updates the _units dictionary with the target position for the unit and asks the _active_unit to walk to it.
 func _move_active_unit(new_cell: Vector2) -> void:
