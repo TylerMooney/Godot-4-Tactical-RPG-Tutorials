@@ -3,6 +3,8 @@
  
  Added Features:
  - Expanded Movement
+
+ Planned Features:
  - Unit Collision Based on Team
  - Attack Ranges
 
