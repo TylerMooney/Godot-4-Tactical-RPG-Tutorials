@@ -3,10 +3,15 @@
  
  Added Features:
  - Expanded Movement
+ - Unit Collision Based on Team
 
  Planned Features:
- - Unit Collision Based on Team
  - Attack Ranges
+ - Unit Action Menu
+ - Combat
+ - Combat Phases
+ - Inventory
+ - Item Usage
 
 ## Links to GDQuest and Acknowledgement of Credit
 [GDQuest's Tactical RPG Movement Series](https://www.gdquest.com/tutorial/godot/2d/tactical-rpg-movement/)
