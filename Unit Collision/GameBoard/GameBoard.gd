@@ -93,7 +93,7 @@ func _flood_fill(cell: Vector2, max_distance: int) -> Array:
 
 ## Generates a list of walkable cells based on unit movement value and tile movement cost
 func _dijkstra(cell: Vector2, max_distance: int) -> Array:
-	var moveable_cells = [cell] # append our base cell to the array
+	var movable_cells = [cell] # append our base cell to the array
 	var visited = [] # 2d array that keeps track of which cells we've already looked at while running the algorithm
 	var distances = [] # shows distance to each cell, might be useful. can omit if you want to
 	var previous = [] #2d array that shows you which cell you have to take to get there to get the shortest path. can omit if you want to
@@ -134,15 +134,19 @@ func _dijkstra(cell: Vector2, max_distance: int) -> Array:
 					
 					distance_to_node = current.priority + tile_cost #calculate tile cost normally
 					
+					if is_occupied(coordinates):
+						if _active_unit.is_enemy != _units[coordinates].is_enemy: #Remove this line if you want to make every unit impassable
+							distance_to_node = current.priority + MAX_VALUE #Mark enemy tile as impassable
+					
 					visited[coordinates.y][coordinates.x] = true
 					distances[coordinates.y][coordinates.x] = distance_to_node
 				
 				if distance_to_node <= max_distance: #check if node is actually reachable by our unit
 					previous[coordinates.y][coordinates.x] = current.value #mark tile we used to get here
-					moveable_cells.append(coordinates) #attach new node we are looking at as reachable
+					movable_cells.append(coordinates) #attach new node we are looking at as reachable
 					queue.push(coordinates, distance_to_node) #use distance as priority
 	
-	return moveable_cells
+	return movable_cells
 
 ## Updates the _units dictionary with the target position for the unit and asks the _active_unit to walk to it.
 func _move_active_unit(new_cell: Vector2) -> void:

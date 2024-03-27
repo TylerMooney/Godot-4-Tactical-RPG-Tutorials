@@ -10,6 +10,8 @@ signal walk_finished
 
 ## Shared resource of type Grid, used to calculate map coordinates.
 @export var grid: Resource
+## Designate current unit as enemy
+@export var is_enemy: bool
 ## Distance to which the unit can walk in cells.
 @export var move_range := 6
 ## The unit's move speed when it's moving along a path.
