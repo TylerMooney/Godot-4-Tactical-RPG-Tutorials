@@ -28,20 +28,23 @@ layer_0/tile_data = PackedInt32Array(-65538, 0, 0, -65537, 0, 0, -131072, 0, 0, 
 [node name="Cursor" parent="GameBoard" instance=ExtResource("1")]
 
 [node name="Bear" parent="GameBoard" instance=ExtResource("2")]
-position = Vector2(607.419, 297.19)
-move_range = 3
+position = Vector2(610.294, 361.196)
+move_range = 0
+attack_range = 3
 skin = ExtResource("8")
 skin_offset = Vector2(2, 9)
 
 [node name="Cat" parent="GameBoard" instance=ExtResource("2")]
 position = Vector2(543.294, 361.065)
 move_range = 4
+attack_range = 1
 skin = ExtResource("9")
 skin_offset = Vector2(5, 12)
 
 [node name="Squirrel" parent="GameBoard" instance=ExtResource("2")]
 position = Vector2(671.294, 361.315)
 move_range = 5
+attack_range = 2
 skin = ExtResource("7")
 skin_offset = Vector2(6, 17)
 
@@ -49,7 +52,9 @@ skin_offset = Vector2(6, 17)
 modulate = Color(1, 0, 0, 1)
 position = Vector2(349.289, 363.685)
 is_enemy = true
+is_wait = true
 move_range = 3
+attack_range = 2
 skin = ExtResource("8")
 skin_offset = Vector2(2, 9)
 
@@ -57,7 +62,9 @@ skin_offset = Vector2(2, 9)
 modulate = Color(1, 0, 0, 1)
 position = Vector2(265.289, 363.52)
 is_enemy = true
+is_wait = true
 move_range = 3
+attack_range = 2
 skin = ExtResource("8")
 skin_offset = Vector2(2, 9)
 
@@ -66,6 +73,7 @@ modulate = Color(1, 0, 0, 1)
 position = Vector2(129.297, 359.254)
 is_enemy = true
 move_range = 3
+attack_range = 2
 skin = ExtResource("8")
 skin_offset = Vector2(2, 9)
 

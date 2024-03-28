@@ -1,19 +1,19 @@
-[gd_resource type="TileSet" load_steps=2 format=2]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://fkslvb3chbpj"]
 
-[ext_resource path="res://UnitOverlay/tileset_unit_overlay.svg" type="Texture" id=1]
+[ext_resource type="Texture2D" uid="uid://cvn1andes3e3w" path="res://UnitOverlay/0_tileset_unit_overlay.png" id="1_hexbb"]
+[ext_resource type="Texture2D" uid="uid://bf0xfg077yr32" path="res://UnitOverlay/1_tileset_unit_overlay.png" id="2_h3ks4"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bf1i4"]
+texture = ExtResource("1_hexbb")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ps8mp"]
+texture = ExtResource("2_h3ks4")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
 
 [resource]
-0/name = "tileset_unit_overlay.svg 0"
-0/texture = ExtResource( 1 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 0, 80, 80 )
-0/tile_mode = 0
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape_one_way = false
-0/shape_one_way_margin = 0.0
-0/shapes = [  ]
-0/z_index = 0
+tile_size = Vector2i(80, 80)
+sources/0 = SubResource("TileSetAtlasSource_bf1i4")
+sources/1 = SubResource("TileSetAtlasSource_ps8mp")

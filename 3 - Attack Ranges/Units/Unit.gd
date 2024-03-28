@@ -12,10 +12,15 @@ signal walk_finished
 @export var grid: Resource
 ## Designate current unit as enemy
 @export var is_enemy: bool
+## Designate the current unit in a "wait" state
+@export var is_wait := false
 ## Distance to which the unit can walk in cells.
 @export var move_range := 6
 ## The unit's move speed when it's moving along a path.
 @export var move_speed := 600.0
+## The distance the unit can attack from their current position
+@export var attack_range := 0
+
 ## Texture representing the unit.
 @export var skin: Texture:
 	set(value):

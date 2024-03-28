@@ -5,6 +5,7 @@ class_name GameBoard
 extends Node2D
 
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
+const OBSTACLE_ATLAS_ID = 2
 
 ## Resource of type Grid.
 @export var grid: Resource
@@ -13,6 +14,7 @@ const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 var _units := {}
 var _active_unit: Unit
 var _walkable_cells := []
+var _attackable_cells := []
 var _movement_costs
 
 @onready var _unit_overlay: UnitOverlay = $UnitOverlay
@@ -46,8 +48,19 @@ func is_occupied(cell: Vector2) -> bool:
 
 ## Returns an array of cells a given unit can walk using the flood fill algorithm.
 func get_walkable_cells(unit: Unit) -> Array:
-	return _dijkstra(unit.cell, unit.move_range)
+	return _dijkstra(unit.cell, unit.move_range, false)
 
+## Return an array of cells a given unit can attack using dijkstra's and flood fill algorithm
+func get_attackable_cells(unit: Unit) -> Array:
+	var attackable_cells = []
+	var real_walkable_cells = _dijkstra(unit.cell, unit.move_range, true)
+	
+	## iterate through every single cell and find their partners based on attack range
+	for curr_cell in real_walkable_cells:
+		for curr_range in range(1, unit.attack_range + 1):
+			attackable_cells = attackable_cells + _flood_fill(curr_cell, unit.attack_range)
+	
+	return attackable_cells.filter(func(i): return i not in real_walkable_cells)
 
 ## Clears, and refills the `_units` dictionary with game objects that are on the board.
 func _reinitialize() -> void:
@@ -62,13 +75,14 @@ func _reinitialize() -> void:
 
 ## Returns an array with all the coordinates of walkable cells based on the `max_distance`.
 func _flood_fill(cell: Vector2, max_distance: int) -> Array:
-	var array := []
+	var full_array := []
+	var wall_array := []
 	var stack := [cell]
 	while not stack.size() == 0:
 		var current = stack.pop_back()
 		if not grid.is_within_bounds(current):
 			continue
-		if current in array:
+		if current in full_array:
 			continue
 
 		var difference: Vector2 = (current - cell).abs()
@@ -76,23 +90,31 @@ func _flood_fill(cell: Vector2, max_distance: int) -> Array:
 		if distance > max_distance:
 			continue
 
-		array.append(current)
+		full_array.append(current)
 		for direction in DIRECTIONS:
 			var coordinates: Vector2 = current + direction
-			if is_occupied(coordinates):
-				continue
-			if coordinates in array:
+			
+			## This detects the impassable objects we define in the TileSet based on the Atlas ID
+			## If you don't want units to attack over walls and only around them comment out this line and put 'continue'
+			if _map.get_cell_source_id(0, coordinates) == OBSTACLE_ATLAS_ID:
+				wall_array.append(coordinates)
+			
+			#if is_occupied(coordinates):
+			#	continue
+			if coordinates in full_array:
 				continue
 			# Minor optimization: If this neighbor is already queued
 			#	to be checked, we don't need to queue it again
 			if coordinates in stack:
 				continue
-
+			
 			stack.append(coordinates)
-	return array
+	
+	## Filter out all the walls and return attackable cells
+	return full_array.filter(func(i): return i not in wall_array)
 
 ## Generates a list of walkable cells based on unit movement value and tile movement cost
-func _dijkstra(cell: Vector2, max_distance: int) -> Array:
+func _dijkstra(cell: Vector2, max_distance: int, attackable_check: bool) -> Array:
 	var movable_cells = [cell] # append our base cell to the array
 	var visited = [] # 2d array that keeps track of which cells we've already looked at while running the algorithm
 	var distances = [] # shows distance to each cell, might be useful. can omit if you want to
@@ -134,9 +156,15 @@ func _dijkstra(cell: Vector2, max_distance: int) -> Array:
 					
 					distance_to_node = current.priority + tile_cost #calculate tile cost normally
 					
+					## Check to see if tile is occupied by opposite team or is waiting
+					## the "or _units[coordinates].is_wait" is the line that you will use to calculate 
+					## Actual attack range for display on hover/walk
 					if is_occupied(coordinates):
 						if _active_unit.is_enemy != _units[coordinates].is_enemy: #Remove this line if you want to make every unit impassable
 							distance_to_node = current.priority + MAX_VALUE #Mark enemy tile as impassable
+						## remove this if you want attack ranges to be seen past units that are waiting
+						elif _units[coordinates].is_wait and attackable_check:
+							occupied_cells.append(coordinates)
 					
 					visited[coordinates.y][coordinates.x] = true
 					distances[coordinates.y][coordinates.x] = distance_to_node
@@ -146,7 +174,7 @@ func _dijkstra(cell: Vector2, max_distance: int) -> Array:
 					movable_cells.append(coordinates) #attach new node we are looking at as reachable
 					queue.push(coordinates, distance_to_node) #use distance as priority
 	
-	return movable_cells
+	return movable_cells.filter(func(i): return i not in occupied_cells)
 
 ## Updates the _units dictionary with the target position for the unit and asks the _active_unit to walk to it.
 func _move_active_unit(new_cell: Vector2) -> void:
@@ -169,8 +197,15 @@ func _select_unit(cell: Vector2) -> void:
 
 	_active_unit = _units[cell]
 	_active_unit.is_selected = true
+	
+	## Acquire the walkable and attackable cells
 	_walkable_cells = get_walkable_cells(_active_unit)
-	_unit_overlay.draw(_walkable_cells)
+	_attackable_cells = get_attackable_cells(_active_unit)
+	
+	## Draw out the walkable and attackable cells now
+	_unit_overlay.draw_attackable_cells(_attackable_cells)
+	_unit_overlay.draw_walkable_cells(_walkable_cells)
+	
 	_unit_path.initialize(_walkable_cells)
 
 
