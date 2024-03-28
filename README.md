@@ -4,9 +4,9 @@
  Added Features:
  - Expanded Movement
  - Unit Collision Based on Team
+ - Attack Ranges
 
  Planned Features:
- - Attack Ranges
  - Unit Action Menu
  - Combat
  - Combat Phases
