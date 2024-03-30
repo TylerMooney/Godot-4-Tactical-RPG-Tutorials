@@ -1,6 +1,8 @@
 # Godot 4 Tactical RPG Tutorials
  This Project Adds Various Features to GDQuest's Original Tactical RPG movement Demo
  
+ [Youtube Tutorials Playlist](https://youtube.com/playlist?list=PL5-B8K1Ns_2oIS4JWICpz-IVqTymQQ7FC&si=P9ypFlRHRHi_LNZa)
+ 
  Added Features:
  - Expanded Movement
  - Unit Collision Based on Team
