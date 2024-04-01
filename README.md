@@ -9,6 +9,7 @@
  - Attack Ranges
 
  Planned Features:
+ - Camera Controls
  - Unit Action Menu
  - Combat
  - Combat Phases
