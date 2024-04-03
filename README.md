@@ -7,9 +7,9 @@
  - Expanded Movement
  - Unit Collision Based on Team
  - Attack Ranges
+ - Camera Controls
 
  Planned Features:
- - Camera Controls
  - Display Ranges on Hover
  - Unit Action Menu
  - Combat
