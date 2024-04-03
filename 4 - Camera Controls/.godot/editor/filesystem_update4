@@ -1,3 +1,5 @@
 res://Main.tscn
 res://UnitOverlay/unit_overlay_tileset.tres
 res://GameBoard/unit_path_tileset.tres
+res://GameBoard/Cursor/Cursor.gd
+res://GameBoard/Cursor/Cursor.tscn
