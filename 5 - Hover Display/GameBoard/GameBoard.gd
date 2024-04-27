@@ -115,6 +115,7 @@ func _flood_fill(cell: Vector2, max_distance: int) -> Array:
 
 ## Generates a list of walkable cells based on unit movement value and tile movement cost
 func _dijkstra(cell: Vector2, max_distance: int, attackable_check: bool) -> Array:
+	var curr_unit = _units[cell]
 	var movable_cells = [cell] # append our base cell to the array
 	var visited = [] # 2d array that keeps track of which cells we've already looked at while running the algorithm
 	var distances = [] # shows distance to each cell, might be useful. can omit if you want to
@@ -160,7 +161,7 @@ func _dijkstra(cell: Vector2, max_distance: int, attackable_check: bool) -> Arra
 					## the "or _units[coordinates].is_wait" is the line that you will use to calculate 
 					## Actual attack range for display on hover/walk
 					if is_occupied(coordinates):
-						if _active_unit.is_enemy != _units[coordinates].is_enemy: #Remove this line if you want to make every unit impassable
+						if curr_unit.is_enemy != _units[coordinates].is_enemy: #Remove this line if you want to make every unit impassable
 							distance_to_node = current.priority + MAX_VALUE #Mark enemy tile as impassable
 						## remove this if you want attack ranges to be seen past units that are waiting
 						elif _units[coordinates].is_wait and attackable_check:
@@ -208,6 +209,17 @@ func _select_unit(cell: Vector2) -> void:
 	
 	_unit_path.initialize(_walkable_cells)
 
+func _hover_display(cell: Vector2) -> void:
+	var curr_unit = _units[cell]
+	
+	## Acquire the walkable and attackable cells
+	_walkable_cells = get_walkable_cells(curr_unit)
+	_attackable_cells = get_attackable_cells(curr_unit)
+	
+	## Draw out the walkable and attackable cells now
+	_unit_overlay.draw_attackable_cells(_attackable_cells)
+	_unit_overlay.draw_walkable_cells(_walkable_cells)
+
 
 ## Deselects the active unit, clearing the cells overlay and interactive path drawing.
 func _deselect_active_unit() -> void:
@@ -234,3 +246,8 @@ func _on_Cursor_accept_pressed(cell: Vector2) -> void:
 func _on_Cursor_moved(new_cell: Vector2) -> void:
 	if _active_unit and _active_unit.is_selected:
 		_unit_path.draw(_active_unit.cell, new_cell)
+	elif _unit_overlay != null and _walkable_cells != []:
+		_walkable_cells.clear()
+		_unit_overlay.clear()
+	if _units.has(new_cell) and _active_unit == null:
+		_hover_display(new_cell)
