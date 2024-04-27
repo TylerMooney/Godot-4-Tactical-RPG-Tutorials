@@ -209,6 +209,10 @@ func _select_unit(cell: Vector2) -> void:
 	
 	_unit_path.initialize(_walkable_cells)
 
+
+## This function will display walkable_cells, attackable_cells, unit stats,
+## Unit items, and the unit avatar (like in fire emblem: engage)
+## That is the reason we make this a completely seperate function
 func _hover_display(cell: Vector2) -> void:
 	var curr_unit = _units[cell]
 	
@@ -242,12 +246,13 @@ func _on_Cursor_accept_pressed(cell: Vector2) -> void:
 		_move_active_unit(cell)
 
 
-## Updates the interactive path's drawing if there's an active and selected unit.
+
 func _on_Cursor_moved(new_cell: Vector2) -> void:
+	## Updates the interactive path's drawing if there's an active and selected unit.
 	if _active_unit and _active_unit.is_selected:
 		_unit_path.draw(_active_unit.cell, new_cell)
 	elif _unit_overlay != null and _walkable_cells != []:
-		_walkable_cells.clear()
-		_unit_overlay.clear()
+		_walkable_cells.clear() # Clearing out the walkable cells
+		_unit_overlay.clear() # This is what clears all the colored tiles on the grid
 	if _units.has(new_cell) and _active_unit == null:
 		_hover_display(new_cell)
