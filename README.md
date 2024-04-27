@@ -8,9 +8,9 @@
  - Unit Collision Based on Team
  - Attack Ranges
  - Camera Controls
+ - Display Ranges on Hover (Display Hover)
 
  Planned Features:
- - Display Ranges on Hover
  - Unit Action Menu
  - Combat
  - Combat Phases
