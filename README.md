@@ -11,7 +11,8 @@
  - Display Ranges on Hover (Hover Display)
 
  Planned Features:
- - Unit Action Menu
+ - Unit Action Menus
+ - In-Game Main/Pause Menus
  - Combat
  - Combat Phases
  - Inventory
