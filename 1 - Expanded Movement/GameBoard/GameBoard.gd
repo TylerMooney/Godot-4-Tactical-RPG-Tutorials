@@ -17,7 +17,7 @@ var _movement_costs
 
 @onready var _unit_overlay: UnitOverlay = $UnitOverlay
 @onready var _unit_path: UnitPath = $UnitPath
-@onready var _map: TileMap = $Map
+@onready var _map: TileMapLayer = $Map
 
 const MAX_VALUE: int = 99999
 

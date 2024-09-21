@@ -11,7 +11,7 @@ var _astar := AStarGrid2D.new()
 ## Initializes the AstarGrid2D object upon creation.
 func _init(grid: Grid, walkable_cells: Array) -> void:
 	_grid = grid
-	_astar.size = _grid.size
+	_astar.region = Rect2(Vector2(0,0), _grid.size)
 	_astar.cell_size = _grid.cell_size
 	_astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	_astar.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
