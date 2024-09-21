@@ -19,7 +19,7 @@ var _movement_costs
 
 @onready var _unit_overlay: UnitOverlay = $UnitOverlay
 @onready var _unit_path: UnitPath = $UnitPath
-@onready var _map: TileMap = $Map
+@onready var _map: TileMapLayer = $Map
 
 const MAX_VALUE: int = 99999
 
@@ -96,7 +96,7 @@ func _flood_fill(cell: Vector2, max_distance: int) -> Array:
 			
 			## This detects the impassable objects we define in the TileSet based on the Atlas ID
 			## If you don't want units to attack over walls and only around them comment out this line and put 'continue'
-			if _map.get_cell_source_id(0, coordinates) == OBSTACLE_ATLAS_ID:
+			if _map.get_cell_source_id(coordinates) == OBSTACLE_ATLAS_ID:
 				wall_array.append(coordinates)
 			
 			#if is_occupied(coordinates):

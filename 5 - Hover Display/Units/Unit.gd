@@ -65,10 +65,10 @@ var _is_walking := false:
 func _ready() -> void:
 	set_process(false)
 	_path_follow.rotates = false
-
+	
 	cell = grid.calculate_grid_coordinates(position)
 	position = grid.calculate_map_position(cell)
-
+	
 	# We create the curve resource here because creating it in the editor prevents us from
 	# moving the unit.
 	if not Engine.is_editor_hint():

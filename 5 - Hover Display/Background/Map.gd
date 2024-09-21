@@ -1,4 +1,4 @@
-extends TileMap
+extends TileMapLayer
 var movement_data
 
 func _ready():
@@ -12,8 +12,7 @@ func get_movement_costs(grid: Grid):
 	for y in range(grid.size.y):
 		movement_costs.append([])
 		for x in range(grid.size.x):
-			## This requires that all tiles with a movement cost MUST be on layer 0 of the tilemap
-			var tile = get_cell_source_id(0, Vector2i(x,y))
+			var tile = get_cell_source_id(Vector2i(x,y))
 			var movement_cost = movement_data.get(tile)
 			movement_costs[y].append(movement_cost)
 	return movement_costs
