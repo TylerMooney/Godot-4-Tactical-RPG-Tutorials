@@ -60,10 +60,10 @@ var _is_walking := false:
 func _ready() -> void:
 	set_process(false)
 	_path_follow.rotates = false
-
+	
 	cell = grid.calculate_grid_coordinates(position)
 	position = grid.calculate_map_position(cell)
-
+	
 	# We create the curve resource here because creating it in the editor prevents us from
 	# moving the unit.
 	if not Engine.is_editor_hint():
@@ -72,7 +72,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_path_follow.progress += move_speed * delta
-
+	
 	if _path_follow.progress_ratio >= 1.0:
 		_is_walking = false
 		# Setting this value to 0.0 causes a Zero Length Interval error
@@ -87,7 +87,7 @@ func _process(delta: float) -> void:
 func walk_along(path: PackedVector2Array) -> void:
 	if path.is_empty():
 		return
-
+	
 	curve.add_point(Vector2.ZERO)
 	for point in path:
 		curve.add_point(grid.calculate_map_position(point) - position)
