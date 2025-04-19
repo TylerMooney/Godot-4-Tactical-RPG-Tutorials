@@ -2,3 +2,6 @@ res://Main.tscn
 res://UnitOverlay/unit_overlay_tileset.tres
 res://GameBoard/unit_path_tileset.tres
 res://GameBoard/Cursor/Cursor.tscn
+res://GameBoard/UnitPath.gd
+res://Menus/ActionMenu.tscn
+res://Menus/PauseMenu.tscn
