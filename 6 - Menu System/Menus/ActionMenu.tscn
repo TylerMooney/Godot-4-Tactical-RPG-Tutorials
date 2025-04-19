@@ -15,20 +15,28 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="AttackButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Attack"
 
-[node name="Button2" type="Button" parent="VBoxContainer"]
+[node name="ItemsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Items"
 
-[node name="Button3" type="Button" parent="VBoxContainer"]
+[node name="TradeButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Trade"
 
-[node name="Button4" type="Button" parent="VBoxContainer"]
+[node name="EmptyButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+text = " "
 
-[node name="Button5" type="Button" parent="VBoxContainer"]
+[node name="WaitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Wait"
 
-[node name="Button6" type="Button" parent="VBoxContainer"]
+[node name="CancelButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Cancel"

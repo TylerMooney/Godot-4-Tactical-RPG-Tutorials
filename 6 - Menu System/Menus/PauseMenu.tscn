@@ -15,17 +15,24 @@ offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="UnitsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Units"
 
-[node name="Button2" type="Button" parent="VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Options"
 
-[node name="Button3" type="Button" parent="VBoxContainer"]
+[node name="EmptyButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+text = " "
 
-[node name="Button4" type="Button" parent="VBoxContainer"]
+[node name="EndTurnButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "End Turn"
 
-[node name="Button5" type="Button" parent="VBoxContainer"]
+[node name="CloseButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Close"
