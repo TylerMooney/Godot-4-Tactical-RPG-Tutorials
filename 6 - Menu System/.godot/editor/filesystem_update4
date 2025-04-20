@@ -8,3 +8,4 @@ res://Menus/PauseMenu.tscn
 res://Menus/ActionMenu.gd
 res://Menus/PauseMenu.gd
 res://GameBoard/GameBoard.gd
+res://GameBoard/Cursor/Cursor.gd

@@ -24,6 +24,7 @@ var _prev_position
 @onready var _unit_overlay: UnitOverlay = $UnitOverlay
 @onready var _unit_path: UnitPath = $UnitPath
 @onready var _map: TileMapLayer = $Map
+@onready var _cursor: Cursor = $Cursor
 
 const MAX_VALUE: int = 99999
 

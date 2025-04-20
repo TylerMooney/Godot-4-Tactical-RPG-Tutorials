@@ -78,6 +78,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		cell += Vector2.DOWN
 		is_mouse = false
 
-
+# Draws the white box above the highlighted cell
 func _draw() -> void:
 	draw_rect(Rect2(-grid.cell_size / 2, grid.cell_size), Color.ALICE_BLUE, false, 2.0)
+
+func reset_cursor() -> void:
+	if(is_mouse):
+		var grid_coords = grid.calculate_grid_coordinates(get_global_mouse_position())
+		if(cell != grid_coords):
+			cell = grid_coords
