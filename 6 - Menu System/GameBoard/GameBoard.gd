@@ -192,7 +192,7 @@ func _move_active_unit(new_cell: Vector2) -> void:
 	_deselect_active_unit()
 	_active_unit.walk_along(_unit_path.current_path)
 	await _active_unit.walk_finished
-	_clear_active_unit()
+	#_clear_active_unit()
 
 
 ## Selects the unit in the `cell` if there's one there.
@@ -202,6 +202,8 @@ func _select_unit(cell: Vector2) -> void:
 		return
 
 	_active_unit = _units[cell]
+	_prev_cell = cell
+	_prev_position = _active_unit.position
 	_active_unit.is_selected = true
 	
 	## Acquire the walkable and attackable cells
@@ -229,6 +231,17 @@ func _hover_display(cell: Vector2) -> void:
 	_unit_overlay.draw_attackable_cells(_attackable_cells)
 	_unit_overlay.draw_walkable_cells(_walkable_cells)
 
+## Resets the position of the unit to its original position before moving
+func _reset_unit() -> void:
+	if _active_unit != null and _active_unit.cell != _prev_cell:
+		_active_unit.position = _prev_position #Visually move unit back to prev cell
+		_units.erase(_active_unit.cell) #Erase the unit data from being on the grid
+		_units[_prev_cell] = _active_unit #Attach the unit's data to the prev cell on the grid
+		_active_unit.cell = _prev_cell #Move the unit back to the prev cell
+		_prev_cell = null #Clear just in case
+		_prev_position = null #Clear just in case
+		_deselect_active_unit()
+		_clear_active_unit()
 
 ## Deselects the active unit, clearing the cells overlay and interactive path drawing.
 func _deselect_active_unit() -> void:

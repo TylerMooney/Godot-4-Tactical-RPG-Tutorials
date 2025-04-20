@@ -31,4 +31,11 @@ func _on_wait_button_pressed() -> void:
 	queue_free()
 
 func _on_cancel_button_pressed() -> void:
-	pass # Replace with function body.
+	#Reset the unit's position
+	get_parent()._reset_unit()
+	
+	#Enable cursor and close menu
+	cursor.process_mode = Node.PROCESS_MODE_INHERIT
+	cursor.reset_cursor()
+	cursor.show()
+	queue_free()
