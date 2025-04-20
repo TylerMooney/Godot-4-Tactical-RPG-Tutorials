@@ -9,10 +9,10 @@
  - Attack Ranges
  - Camera Controls
  - Display Ranges on Hover (Hover Display)
+ - Unit Action Menus (Partial Implementation)
+ - In-Game Main/Pause Menus (Partial Implementation)
 
  Planned Features:
- - Unit Action Menus
- - In-Game Main/Pause Menus
  - Combat
  - Combat Phases
  - Inventory
