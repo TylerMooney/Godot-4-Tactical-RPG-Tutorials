@@ -6,6 +6,8 @@ extends Node2D
 
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 const OBSTACLE_ATLAS_ID = 2
+const PauseMenu = preload("res://Menus/PauseMenu.tscn")
+const ActionMenu = preload("res://Menus/ActionMenu.tscn")
 
 ## Resource of type Grid.
 @export var grid: Resource
@@ -16,6 +18,8 @@ var _active_unit: Unit
 var _walkable_cells := []
 var _attackable_cells := []
 var _movement_costs
+var _prev_cell
+var _prev_position
 
 @onready var _unit_overlay: UnitOverlay = $UnitOverlay
 @onready var _unit_path: UnitPath = $UnitPath
@@ -240,11 +244,23 @@ func _clear_active_unit() -> void:
 
 ## Selects or moves a unit based on where the cursor is.
 func _on_Cursor_accept_pressed(cell: Vector2) -> void:
-	if not _active_unit:
+	if not _active_unit and _units.has(cell):
 		_select_unit(cell)
-	elif _active_unit.is_selected:
-		_move_active_unit(cell)
-
+	elif _active_unit != null:
+		if is_occupied(cell) and _units[cell] == _active_unit:
+			var action_menu = ActionMenu.instantiate()
+			
+			_units.erase(_active_unit.cell)
+			_units[cell] = _active_unit
+			
+			add_child(action_menu)
+		elif not is_occupied(cell) and _walkable_cells.has(cell):
+			await(_move_active_unit(cell))
+			var action_menu = ActionMenu.instantiate()
+			add_child(action_menu)
+	else:
+		var pause_menu = PauseMenu.instantiate()
+		add_child(pause_menu)
 
 
 func _on_Cursor_moved(new_cell: Vector2) -> void:

@@ -1,8 +1,8 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1745102744
+::res://::1745105421
 arrows.svg::CompressedTexture2D::4758664585829825197::1745093569::1745093675::1::::<><>::
 icon.png::CompressedTexture2D::4800787463865256339::1745093569::1745093675::1::::<><>::
-Main.tscn::PackedScene::2017446843201763343::1745102613::0::1::::<><>::uid://bv1ul1qynrdwd::::res://GameBoard/Cursor/Cursor.tscn<>uid://d4mhjq651egt::::res://Units/Unit.tscn<>res://GameBoard/GameBoard.gd<>uid://cocms0prufyqi::::res://Background/grasslands.png<>res://GameBoard/Grid.tres<>res://Background/Map.gd<>uid://fkslvb3chbpj::::res://UnitOverlay/unit_overlay_tileset.tres<>res://UnitOverlay/UnitOverlay.gd<>uid://ceanoo0yxcj8i::::res://Units/squirrel.png<>uid://dqg14aj86so4a::::res://GameBoard/unit_path_tileset.tres<>uid://don6rhlapjhye::::res://Units/bear.png<>res://GameBoard/UnitPath.gd<>uid://x4kxxdinjx3r::::res://Units/bugcat.png
+Main.tscn::PackedScene::2017446843201763343::1745105421::0::1::::<><>::uid://bv1ul1qynrdwd::::res://GameBoard/Cursor/Cursor.tscn<>uid://d4mhjq651egt::::res://Units/Unit.tscn<>res://GameBoard/GameBoard.gd<>uid://cocms0prufyqi::::res://Background/grasslands.png<>res://GameBoard/Grid.tres<>res://Background/Map.gd<>uid://fkslvb3chbpj::::res://UnitOverlay/unit_overlay_tileset.tres<>res://UnitOverlay/UnitOverlay.gd<>uid://ceanoo0yxcj8i::::res://Units/squirrel.png<>uid://dqg14aj86so4a::::res://GameBoard/unit_path_tileset.tres<>uid://don6rhlapjhye::::res://Units/bear.png<>res://GameBoard/UnitPath.gd<>uid://x4kxxdinjx3r::::res://Units/bugcat.png
 ::res://Background/::1745093675
 grasslands.png::CompressedTexture2D::5760376019085434320::1745093569::1745093675::1::::<><>::
 Map.gd::GDScript::-1::1745093569::0::1::::<>TileMapLayer<>::
@@ -22,8 +22,10 @@ unit_path_tileset.tres::TileSet::8296300261092109810::1745093697::0::1::::<><>::
 Cursor.gd::GDScript::-1::1745093569::0::1::::Cursor<>Node2D<>::
 Cursor.tscn::PackedScene::3915295596718087763::1745093708::0::1::::<><>::res://GameBoard/Cursor/Cursor.gd<>uid://dsmh2fn7kpkri::::res://GameBoard/Cursor/menu_selection_arrow.png<>res://GameBoard/Grid.tres
 menu_selection_arrow.png::CompressedTexture2D::8447907289164507594::1745093569::1745093675::1::::<><>::
-::res://Menus/::1745102744
-ActionMenu.tscn::PackedScene::5669783346022526427::1745102753::0::1::::<><>::
+::res://Menus/::1745105543
+ActionMenu.tscn::PackedScene::5669783346022526427::1745105543::0::1::::<><>::
+PauseMenu.tscn::PackedScene::4180977469719871922::1745105421::0::1::::<><>::
+action_menu.gd::GDScript::-1::1745108138::0::1::::<>CanvasLayer<>::
 ::res://UnitOverlay/::1745093697
 0_tileset_unit_overlay.png::CompressedTexture2D::6275223324044454302::1745093569::1745093675::1::::<><>::
 1_tileset_unit_overlay.png::CompressedTexture2D::2790380120795782039::1745093569::1745093675::1::::<><>::

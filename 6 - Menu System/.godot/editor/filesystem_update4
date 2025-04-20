@@ -5,3 +5,6 @@ res://GameBoard/Cursor/Cursor.tscn
 res://GameBoard/UnitPath.gd
 res://Menus/ActionMenu.tscn
 res://Menus/PauseMenu.tscn
+res://Menus/ActionMenu.gd
+res://Menus/PauseMenu.gd
+res://GameBoard/GameBoard.gd

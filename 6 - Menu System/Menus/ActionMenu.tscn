@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://cm1qrd4n0hkw6"]
+[gd_scene load_steps=2 format=3 uid="uid://cm1qrd4n0hkw6"]
+
+[ext_resource type="Script" path="res://Menus/ActionMenu.gd" id="1_83jjr"]
 
 [node name="ActionMenu" type="CanvasLayer"]
+script = ExtResource("1_83jjr")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 8
@@ -40,3 +43,9 @@ text = "Wait"
 [node name="CancelButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Cancel"
+
+[connection signal="pressed" from="VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ItemsButton" to="." method="_on_items_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/TradeButton" to="." method="_on_trade_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/WaitButton" to="." method="_on_wait_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://b0tkc822txw0a"]
+[gd_scene load_steps=2 format=3 uid="uid://b0tkc822txw0a"]
+
+[ext_resource type="Script" path="res://Menus/PauseMenu.gd" id="1_ges5w"]
 
 [node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_ges5w")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 8
@@ -36,3 +39,8 @@ text = "End Turn"
 [node name="CloseButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Close"
+
+[connection signal="pressed" from="VBoxContainer/UnitsButton" to="." method="_on_units_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
