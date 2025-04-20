@@ -244,21 +244,24 @@ func _clear_active_unit() -> void:
 
 ## Selects or moves a unit based on where the cursor is.
 func _on_Cursor_accept_pressed(cell: Vector2) -> void:
-	if not _active_unit and _units.has(cell):
+	if not _active_unit and _units.has(cell): #Select a unit
 		_select_unit(cell)
-	elif _active_unit != null:
-		if is_occupied(cell) and _units[cell] == _active_unit:
-			var action_menu = ActionMenu.instantiate()
-			
+	elif _active_unit != null: #A unit is already selected, pulls up action menu
+		if is_occupied(cell) and _units[cell] == _active_unit: #Unit is not moving
+			#Temporary Fix, Removes the unit's walkable and attackable cells from view
 			_units.erase(_active_unit.cell)
 			_units[cell] = _active_unit
+			_deselect_active_unit()
+			_clear_active_unit()
 			
+			#Creates and pops up the associated menu
+			var action_menu = ActionMenu.instantiate()
 			add_child(action_menu)
-		elif not is_occupied(cell) and _walkable_cells.has(cell):
+		elif not is_occupied(cell) and _walkable_cells.has(cell): #Unit is moving
 			await(_move_active_unit(cell))
 			var action_menu = ActionMenu.instantiate()
 			add_child(action_menu)
-	else:
+	else: #Player selects a cell without a unit, pulls up pause menu
 		var pause_menu = PauseMenu.instantiate()
 		add_child(pause_menu)
 
